@@ -25,7 +25,7 @@ class ShoppingCart
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=ShoppingCartProduct::class, mappedBy="shopping_cart")
+     * @ORM\OneToMany(targetEntity=ShoppingCartProduct::class, mappedBy="shoppingCart")
      */
     private $shoppingCartProducts;
 
@@ -63,7 +63,7 @@ class ShoppingCart
     {
         if (!$this->shoppingCartProducts->contains($shoppingCartProduct)) {
             $this->shoppingCartProducts[] = $shoppingCartProduct;
-            $shoppingCartProduct->addShoppingCart($this);
+            $shoppingCartProduct->setShoppingCart($this);
         }
 
         return $this;
@@ -72,7 +72,10 @@ class ShoppingCart
     public function removeShoppingCartProduct(ShoppingCartProduct $shoppingCartProduct): self
     {
         if ($this->shoppingCartProducts->removeElement($shoppingCartProduct)) {
-            $shoppingCartProduct->removeShoppingCart($this);
+            // set the owning side to null (unless already changed)
+            if ($shoppingCartProduct->getShoppingCart() === $this) {
+                $shoppingCartProduct->setShoppingCart(null);
+            }
         }
 
         return $this;

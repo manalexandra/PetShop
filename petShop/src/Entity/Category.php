@@ -25,7 +25,7 @@ class Category
     private $animalType;
 
     /**
-     * @ORM\OneToMany(targetEntity=Subcategory::class, mappedBy="category", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Subcategory::class, inversedBy="categories")
      */
     private $subcategories;
 
@@ -63,7 +63,6 @@ class Category
     {
         if (!$this->subcategories->contains($subcategory)) {
             $this->subcategories[] = $subcategory;
-            $subcategory->setCategory($this);
         }
 
         return $this;
@@ -71,12 +70,7 @@ class Category
 
     public function removeSubcategory(Subcategory $subcategory): self
     {
-        if ($this->subcategories->removeElement($subcategory)) {
-            // set the owning side to null (unless already changed)
-            if ($subcategory->getCategory() === $this) {
-                $subcategory->setCategory(null);
-            }
-        }
+        $this->subcategories->removeElement($subcategory);
 
         return $this;
     }

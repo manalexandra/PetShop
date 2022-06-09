@@ -62,20 +62,20 @@ class Product
     private $quantity;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderProduct::class, mappedBy="product")
-     */
-    private $orderProducts;
-
-    /**
      * @ORM\OneToMany(targetEntity=ShoppingCartProduct::class, mappedBy="product")
      */
     private $shoppingCartProducts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OrderProduct::class, mappedBy="product")
+     */
+    private $orderProducts;
+
+
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
-        $this->orderProducts = new ArrayCollection();
         $this->shoppingCartProducts = new ArrayCollection();
+        $this->orderProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,33 +180,6 @@ class Product
     }
 
     /**
-     * @return Collection<int, OrderProduct>
-     */
-    public function getOrderProducts(): Collection
-    {
-        return $this->orderProducts;
-    }
-
-    public function addOrderProduct(OrderProduct $orderProduct): self
-    {
-        if (!$this->orderProducts->contains($orderProduct)) {
-            $this->orderProducts[] = $orderProduct;
-            $orderProduct->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderProduct(OrderProduct $orderProduct): self
-    {
-        if ($this->orderProducts->removeElement($orderProduct)) {
-            $orderProduct->removeProduct($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, ShoppingCartProduct>
      */
     public function getShoppingCartProducts(): Collection
@@ -218,7 +191,7 @@ class Product
     {
         if (!$this->shoppingCartProducts->contains($shoppingCartProduct)) {
             $this->shoppingCartProducts[] = $shoppingCartProduct;
-            $shoppingCartProduct->addProduct($this);
+            $shoppingCartProduct->setProduct($this);
         }
 
         return $this;
@@ -227,7 +200,40 @@ class Product
     public function removeShoppingCartProduct(ShoppingCartProduct $shoppingCartProduct): self
     {
         if ($this->shoppingCartProducts->removeElement($shoppingCartProduct)) {
-            $shoppingCartProduct->removeProduct($this);
+            // set the owning side to null (unless already changed)
+            if ($shoppingCartProduct->getProduct() === $this) {
+                $shoppingCartProduct->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderProduct>
+     */
+    public function getOrderProducts(): Collection
+    {
+        return $this->orderProducts;
+    }
+
+    public function addOrderProduct(OrderProduct $orderProduct): self
+    {
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts[] = $orderProduct;
+            $orderProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderProduct(OrderProduct $orderProduct): self
+    {
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getProduct() === $this) {
+                $orderProduct->setProduct(null);
+            }
         }
 
         return $this;

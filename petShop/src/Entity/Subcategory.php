@@ -20,12 +20,6 @@ class Subcategory
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="subcategories")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $category;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -35,26 +29,20 @@ class Subcategory
      */
     private $products;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="subcategories")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -94,6 +82,33 @@ class Subcategory
             if ($product->getSubcategory() === $this) {
                 $product->setSubcategory(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addSubcategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->categories->removeElement($category)) {
+            $category->removeSubcategory($this);
         }
 
         return $this;

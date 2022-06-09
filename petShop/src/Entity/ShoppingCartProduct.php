@@ -20,77 +20,25 @@ class ShoppingCartProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ShoppingCart::class, inversedBy="shoppingCartProducts")
-     */
-    private $shoppingCart;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="shoppingCartProducts")
-     */
-    private $product;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
 
-    public function __construct()
-    {
-        $this->shopping_cart = new ArrayCollection();
-        $this->product = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="shoppingCartProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ShoppingCart::class, inversedBy="shoppingCartProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $shoppingCart;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection<int, ShoppingCart>
-     */
-    public function getShoppingCart(): Collection
-    {
-        return $this->shopping_cart;
-    }
-
-    public function addShoppingCart(ShoppingCart $shoppingCart): self
-    {
-        if (!$this->shoppingCart->contains($shoppingCart)) {
-            $this->shoppingCart[] = $shoppingCart;
-        }
-
-        return $this;
-    }
-
-    public function removeShoppingCart(ShoppingCart $shoppingCart): self
-    {
-        $this->shoppingCart->removeElement($shoppingCart);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->product->removeElement($product);
-
-        return $this;
     }
 
     public function getQuantity(): ?int
@@ -101,6 +49,30 @@ class ShoppingCartProduct
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getShoppingCart(): ?ShoppingCart
+    {
+        return $this->shoppingCart;
+    }
+
+    public function setShoppingCart(?ShoppingCart $shoppingCart): self
+    {
+        $this->shoppingCart = $shoppingCart;
 
         return $this;
     }

@@ -47,13 +47,12 @@ class Order
     private $deliveryAddress;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderProduct::class, mappedBy="order_id")
+     * @ORM\OneToMany(targetEntity=OrderProduct::class, mappedBy="order")
      */
     private $orderProducts;
 
     public function __construct()
     {
-        $this->products = new ArrayCollection();
         $this->orderProducts = new ArrayCollection();
     }
 
@@ -134,7 +133,7 @@ class Order
     {
         if (!$this->orderProducts->contains($orderProduct)) {
             $this->orderProducts[] = $orderProduct;
-            $orderProduct->addOrderId($this);
+            $orderProduct->setOrder($this);
         }
 
         return $this;
@@ -143,7 +142,10 @@ class Order
     public function removeOrderProduct(OrderProduct $orderProduct): self
     {
         if ($this->orderProducts->removeElement($orderProduct)) {
-            $orderProduct->removeOrderId($this);
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getOrder() === $this) {
+                $orderProduct->setOrder(null);
+            }
         }
 
         return $this;

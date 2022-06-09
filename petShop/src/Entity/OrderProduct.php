@@ -20,77 +20,25 @@ class OrderProduct
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderProducts")
-     */
-    private $order;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderProducts")
-     */
-    private $product;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $quantity;
 
-    public function __construct()
-    {
-        $this->order = new ArrayCollection();
-        $this->product = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="orderProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderProducts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $order;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection<int, Order>
-     */
-    public function getOrder(): Collection
-    {
-        return $this->order;
-    }
-
-    public function addOrderId(Order $order): self
-    {
-        if (!$this->order->contains($order)) {
-            $this->order[] = $order;
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        $this->order->removeElement($order);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->product->removeElement($product);
-
-        return $this;
     }
 
     public function getQuantity(): ?int
@@ -101,6 +49,30 @@ class OrderProduct
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getOrder(): ?Order
+    {
+        return $this->order;
+    }
+
+    public function setOrder(?Order $order): self
+    {
+        $this->order = $order;
 
         return $this;
     }
