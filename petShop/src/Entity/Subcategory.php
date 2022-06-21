@@ -30,14 +30,14 @@ class Subcategory
     private $products;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Category::class, mappedBy="subcategories")
+     * @ORM\OneToMany(targetEntity=CategorySubcategory::class, mappedBy="subcategory")
      */
-    private $categories;
+    private $categorySubcategories;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->categorySubcategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,57 +58,30 @@ class Subcategory
     }
 
     /**
-     * @return Collection<int, Product>
+     * @return Collection<int, CategorySubcategory>
      */
-    public function getProducts(): Collection
+    public function getCategorySubcategories(): Collection
     {
-        return $this->products;
+        return $this->categorySubcategories;
     }
 
-    public function addProduct(Product $product): self
+    public function addCategorySubcategory(CategorySubcategory $categorySubcategory): self
     {
-        if (!$this->products->contains($product)) {
-            $this->products[] = $product;
-            $product->setSubcategory($this);
+        if (!$this->categorySubcategories->contains($categorySubcategory)) {
+            $this->categorySubcategories[] = $categorySubcategory;
+            $categorySubcategory->setSubcategory($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function removeCategorySubcategory(CategorySubcategory $categorySubcategory): self
     {
-        if ($this->products->removeElement($product)) {
+        if ($this->categorySubcategories->removeElement($categorySubcategory)) {
             // set the owning side to null (unless already changed)
-            if ($product->getSubcategory() === $this) {
-                $product->setSubcategory(null);
+            if ($categorySubcategory->getSubcategory() === $this) {
+                $categorySubcategory->setSubcategory(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->categories->contains($category)) {
-            $this->categories[] = $category;
-            $category->addSubcategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->categories->removeElement($category)) {
-            $category->removeSubcategory($this);
         }
 
         return $this;

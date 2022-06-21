@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Brand;
 use App\Entity\Category;
+use App\Entity\CategorySubcategory;
 use App\Entity\DeliveryAddress;
 use App\Entity\Product;
 use App\Entity\Subcategory;
@@ -24,7 +25,7 @@ class AppFixtures extends Fixture
         'Food',
         'Leashes & Collars',
         'Clothes & Accessories',
-        'Beds & Clothes',
+        'Beds & Cages',
         'Toys',
     ];
 
@@ -38,7 +39,7 @@ class AppFixtures extends Fixture
         'Food',
         'Leashes & Collars',
         'Clothes & Accessories',
-        'Beds & Clothes',
+        'Beds & Cages',
         'Toys',
         'Bird cages',
         'Accessories for bird cages',
@@ -152,26 +153,32 @@ class AppFixtures extends Fixture
     }
 
     public function loadSubcategories(ObjectManager $manager) {
-        for($i = 0; $i < count(self::SUBCATEGORIES); $i++){
+        for($i = 0; $i < count(self::ALL_SUBCATEGORIES); $i++) {
             $subcategory = new Subcategory();
-            $subcategory->setName(self::SUBCATEGORIES[$i]);
-            for($j = 0; $j < count(self::CATEGORIES); $j++) {
-                if(self::CATEGORIES[$j] == 'Dogs' || self::CATEGORIES[$j] == 'Cats' || (self::CATEGORIES[$j] == 'Birds' && self::SUBCATEGORIES[$i] == 'Food')) {
-                    $subcategory->addCategory($this->getReference(self::CATEGORIES[$j]));
-                }
-            }
-            $this->addReference(self::SUBCATEGORIES[$i], $subcategory);
+            $subcategory->setName(self::ALL_SUBCATEGORIES[$i]);
+            $this->addReference(self::ALL_SUBCATEGORIES[$i], $subcategory);
             $manager->persist($subcategory);
         }
+        $manager->flush();
+    }
 
-        for($i = 0; $i < count(self::SUBCATEGORIES2); $i++){
-            if(self::SUBCATEGORIES2[$i] !== 'Food') {
-                $subcategory = new Subcategory();
-                $subcategory
-                    ->setName(self::SUBCATEGORIES2[$i])
-                    ->addCategory($this->getReference(self::CATEGORIES[2]));
-                $this->addReference(self::SUBCATEGORIES2[$i], $subcategory);
-                $manager->persist($subcategory);
+    public function createCategorySubcategory(ObjectManager $manager, $i, &$count, $subcategoryList){
+        for ($j = 0; $j < count($subcategoryList); $j++) {
+            $categorySubcategory = new CategorySubcategory();
+            $categorySubcategory->setCategory($this->getReference(self::CATEGORIES[$i]));
+            $categorySubcategory->setSubcategory($this->getReference($subcategoryList[$j]));
+            $this->addReference($count++, $categorySubcategory);
+            $manager->persist($categorySubcategory);
+        }
+    }
+
+    public function loadCategorySubcategory(ObjectManager $manager) {
+        $count = 0;
+        for($i = 0; $i < count(self::CATEGORIES); $i++){
+            if(self::CATEGORIES[$i] == 'Dogs' || self::CATEGORIES[$i] == 'Cats') {
+                $this->createCategorySubcategory($manager, $i, $count, self::SUBCATEGORIES);
+            } else {
+                $this->createCategorySubcategory($manager, $i, $count, self::SUBCATEGORIES2);
             }
         }
         $manager->flush();
@@ -220,7 +227,7 @@ class AppFixtures extends Fixture
 
     public function loadProducts(ObjectManager $manager) {
         for($i = 0; $i < 100; $i++) {
-            $randomSubcategories = self::ALL_SUBCATEGORIES[rand(0,6)];
+            $randomCategorySubcategory = rand(0,12);
             $product = new Product();
             $product
                 ->setBrand($this->getReference(self::BRAND[rand(0,4)]))
@@ -229,8 +236,8 @@ class AppFixtures extends Fixture
                 ->setQuantity($product->isInStock() ? rand(1,150) : 0)
                 ->setImage('jpg '.$i)
                 ->setDescription(substr(self::DESCRIPTION, rand(0,100), rand(-100,-1)))
-                ->setName($randomSubcategories.' '.$i)
-                ->setSubcategory($this->getReference($randomSubcategories));
+                ->setName($this->getReference($randomCategorySubcategory)->getSubcategory()->getName().' '.$i)
+                ->setCategorySubcategory($this->getReference($randomCategorySubcategory));
             $manager->persist($product);
         }
         $manager->flush();
@@ -240,6 +247,7 @@ class AppFixtures extends Fixture
     {
         $this->loadCategories($manager);
         $this->loadSubcategories($manager);
+        $this->loadCategorySubcategory($manager);
         $this->loadBrands($manager);
         $this->loadDeliveryAddresses($manager);
         $this->loadUsers($manager);

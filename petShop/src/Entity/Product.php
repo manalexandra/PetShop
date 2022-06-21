@@ -26,12 +26,6 @@ class Product
     private $brand;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Subcategory::class, inversedBy="products")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $subcategory;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -71,6 +65,12 @@ class Product
      */
     private $orderProducts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CategorySubcategory::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorySubcategory;
+
 
     public function __construct()
     {
@@ -91,18 +91,6 @@ class Product
     public function setBrand(?Brand $brand): self
     {
         $this->brand = $brand;
-
-        return $this;
-    }
-
-    public function getSubcategory(): ?Subcategory
-    {
-        return $this->subcategory;
-    }
-
-    public function setSubcategory(?Subcategory $subcategory): self
-    {
-        $this->subcategory = $subcategory;
 
         return $this;
     }
@@ -235,6 +223,18 @@ class Product
                 $orderProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategorySubcategory(): ?CategorySubcategory
+    {
+        return $this->categorySubcategory;
+    }
+
+    public function setCategorySubcategory(?CategorySubcategory $categorySubcategory): self
+    {
+        $this->categorySubcategory = $categorySubcategory;
 
         return $this;
     }
