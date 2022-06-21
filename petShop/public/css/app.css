@@ -151,3 +151,17 @@ footer {
 .category-banner {
     width: 30%;
 }
+
+.red-badge {
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    background-color: #d00000;
+}
+
+.green-badge {
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    background-color: #09ef09;
+}
