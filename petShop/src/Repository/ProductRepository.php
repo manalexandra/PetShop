@@ -39,6 +39,32 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findProductByCategory($category) : array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.categorySubcategory', 'cs')
+            ->innerJoin('cs.category', 'c')
+            ->where('c.animalType = :animalType')
+            ->setParameter('animalType', $category)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findProductBySubcategory($category, $subcategory) : array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.categorySubcategory', 'cs')
+            ->innerJoin('cs.category', 'c')
+            ->innerJoin('cs.subcategory', 's')
+            ->where('c.animalType = :animalType and s.name = :name')
+            ->setParameter('animalType', $category)
+            ->setParameter('name', $subcategory)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
