@@ -2,64 +2,7 @@
 
 {% block body %}
     <div class="px-4 d-flex">
-        <div class="category-banner">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: xx-large; color: #444444">Dogs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Food</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Leashes & Collars</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Clothes & Accessories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Beds & Cages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Toys</a>
-                </li>
-            </ul>
-
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: xx-large; color: #444444">Cats</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Food</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Leashes & Collars</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Clothes & Accessories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Beds & Cages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Toys</a>
-                </li>
-            </ul>
-
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="font-size: xx-large; color: #444444">Birds</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Food</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Bird cages</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" style="margin-left: 20px; color: #444444">Accessories for bird cages</a>
-                </li>
-            </ul>
-        </div>
+        {{ include('components/categories.html.twig') }}
 
         <div class="center-img">
             <img src="{{ asset('images/petsHomepg.jpg') }}" alt="Pets" width="70%" class="m-5">

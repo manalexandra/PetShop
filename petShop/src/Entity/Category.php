@@ -25,13 +25,13 @@ class Category
     private $animalType;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Subcategory::class, inversedBy="categories")
+     * @ORM\OneToMany(targetEntity=CategorySubcategory::class, mappedBy="category")
      */
-    private $subcategories;
+    private $categorySubcategories;
 
     public function __construct()
     {
-        $this->subcategories = new ArrayCollection();
+        $this->categorySubcategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,25 +52,31 @@ class Category
     }
 
     /**
-     * @return Collection<int, Subcategory>
+     * @return Collection<int, CategorySubcategory>
      */
-    public function getSubcategories(): Collection
+    public function getCategorySubcategories(): Collection
     {
-        return $this->subcategories;
+        return $this->categorySubcategories;
     }
 
-    public function addSubcategory(Subcategory $subcategory): self
+    public function addCategorySubcategory(CategorySubcategory $categorySubcategory): self
     {
-        if (!$this->subcategories->contains($subcategory)) {
-            $this->subcategories[] = $subcategory;
+        if (!$this->categorySubcategories->contains($categorySubcategory)) {
+            $this->categorySubcategories[] = $categorySubcategory;
+            $categorySubcategory->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeSubcategory(Subcategory $subcategory): self
+    public function removeCategorySubcategory(CategorySubcategory $categorySubcategory): self
     {
-        $this->subcategories->removeElement($subcategory);
+        if ($this->categorySubcategories->removeElement($categorySubcategory)) {
+            // set the owning side to null (unless already changed)
+            if ($categorySubcategory->getCategory() === $this) {
+                $categorySubcategory->setCategory(null);
+            }
+        }
 
         return $this;
     }
