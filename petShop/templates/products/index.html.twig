@@ -14,13 +14,18 @@
                     <div class="card mb-4">
                         <img src="/images/accessories.jpg" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title", style="font-weight: bold">{{ product.name }} {{ product.brand.name }}</h5>
+                            <h5 class="card-title", style="font-weight: bold; padding-bottom: 5px">{{ product.name }} - {{ product.brand.name }}</h5>
                             {% if( product.inStock == 1 ) %}
-                                <h6 class="card-title">In Stock</h6>
+                                <h6 class="card-title">
+                                    <span class="green-badge"> In Stock </span>
+                                </h6>
                             {% else %}
-                                <h6 class="card-title">Out of Stock</h6>
+                                <h6 class="card-title">
+                                    <span class="red-badge"> Out of Stock </span>
+                                </h6>
                             {% endif %}
                             <div class="d-flex justify-content-between align-item-center">
+                                <a href="{{ path('app_product_view', {id: product.id}) }}" class="btn btn-dark" style="margin-top: 10px">View details</a>
                                 <span class="h5 mt-auto">{{ product.price }} €</span>
                             </div>
                         </div>
