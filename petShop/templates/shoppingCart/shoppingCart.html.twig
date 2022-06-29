@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block body %}
+    <div class="container py-5 h-100" style="margin-bottom: 63px">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="card">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div style="height: 25px">
+                            <h1>Your Cart</h1>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center" style="padding-left: 600px; height: 5px; padding-top: 6px">
+                            <div>
+                                <h5>Quantity</h5>
+                            </div>
+                            <div style="padding-left: 40px">
+                                <h5>Price</h5>
+                            </div>
+                            <div style="padding-left: 60px">
+                                <h5>Total Price</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div id="shoppingCartTableContent">
+                        {% if shoppingCartProducts is empty %}
+                            Your shopping cart is empty, go to <a href="{{ path('app_homepage') }}">product list</a>!
+                        {% else %}
+                            {% for shoppingCartProduct in shoppingCartProducts %}
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div>
+                                            <img src="/images/accessories.jpg" class="img-fluid rounded-3" alt="Shopping item" style="width: 100px;">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4>{{ shoppingCartProduct.product.name }} </h4>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div style="width: 100px;">
+                                            <input id="form1" min="1" max="{{ shoppingCartProduct.product.quantity }}" name="quantity" value="{{ shoppingCartProduct.quantity }}" type="number"
+                                                   class="form-control form-control-sm" style="width: 60px" data-url="{{path('app_updateQuantityFromCart', {id: shoppingCartProduct.product.id, quantity: 1})}}" onchange="updateQuantityFromCart(event)"/>
+                                        </div>
+                                        <div style="width: 150px;">
+                                            <h5 class="mb-0">{{ shoppingCartProduct.product.price }} €</h5>
+                                        </div>
+                                        <div style="width: 150px;">
+                                            <h5 class="mb-0">{{ shoppingCartProduct.getTotalPrice }} €</h5>
+                                        </div>
+                                        <button class="btn btn-light" onclick="removeFromCart(event, '{{path('app_removeFromCart', {id: shoppingCartProduct.product.id})}}')" style="color: mediumseagreen; background-color: #fff; width: 50px"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                                <hr class="my-4">
+                            {% endfor %}
+                            <div style="padding-left: 80%">
+                                <h4 style="font-weight: bolder">Final Price</h4>
+                                <h5 class="mb-0" style="padding-left: 10%">{{ shoppingCart.getFinalPrice }} €</h5>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

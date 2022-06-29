@@ -28,6 +28,7 @@
                                 <a href="{{ path('app_product_view', {id: product.id}) }}" class="btn btn-dark" style="margin-top: 10px">View details</a>
                                 <span class="h5 mt-auto">{{ product.price }} €</span>
                             </div>
+                            <button {{product.inStock ? '' : 'disabled'}} class="btn btn-warning" style="margin-top: 20px" data-url="{{path('app_addToCart', {id: product.id, quantity: 1})}}" onclick="addToCart(event)">Add to Cart</button>
                         </div>
                     </div>
                 </div>

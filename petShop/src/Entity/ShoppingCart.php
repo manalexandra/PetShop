@@ -80,4 +80,14 @@ class ShoppingCart
 
         return $this;
     }
+
+    public function getFinalPrice(): float
+    {
+        $total = 0;
+        foreach ($this->shoppingCartProducts as $shoppingCartProduct)
+        {
+            $total += $shoppingCartProduct->getTotalPrice();
+        }
+        return $total;
+    }
 }
