@@ -22,6 +22,13 @@
                 {% endif %}
                 <hr>
                 <b>Description: </b>{{ product.description }}
+                <div class="mt-4 p-4 bg-light">
+                    <div class="input-group-prepend">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" value="1" min="1" max="{{ product.quantity }}" class="form-control" id="quantity">
+                        <button {{product.inStock ? '' : 'disabled'}} class="btn btn-warning" style="margin-top: 20px" data-url="{{path('app_addToCart', {id: product.id, quantity: 1})}}" onclick="addToCart(event)"> Add to Cart </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
