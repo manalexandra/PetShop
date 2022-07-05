@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -21,7 +21,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', TextType::class, [
                 'constraints' => [
                     new Email([
-                        'message' => "Make sure your email address is valid (contains '@', '.').",
+                        'message' => "Make sure your email address is valid.",
                     ]),
                     new NotBlank([
                         'message' => "Please fill out this field.",
@@ -33,12 +33,20 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => "Please fill out this field.",
                     ]),
+                    new Regex([
+                        'pattern' => "/^[a-zA-Z]+-?[a-zA-Z]+$/",
+                        'message' => "Please make sure it is a valid name.",
+                    ]),
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => "Please fill out this field.",
+                    ]),
+                    new Regex([
+                        'pattern' => "/^[a-zA-Z]+-?[a-zA-Z]+$/",
+                        'message' => "Please make sure it is a valid name.",
                     ]),
                 ],
             ])
@@ -47,7 +55,8 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => "Please fill out this field.",
                     ]),
-                    new Positive([
+                    new Regex([
+                        'pattern' => "/^07\d*$/",
                         'message' => "Please make sure it is a valid phone number.",
                     ]),
                     new Length([
