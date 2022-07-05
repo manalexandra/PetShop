@@ -165,3 +165,46 @@ footer {
     color: white;
     background-color: #09ef09;
 }
+
+.checkout-button {
+    text-decoration: none;
+    color: #2B2B2B;
+    padding-left: 87%;
+    font-weight: 900;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.checkout-button:hover {
+    color: #2B2B2B;
+}
+
+.back-to-cart {
+    text-decoration: none;
+    color: #2B2B2B;
+    font-weight: 900;
+    font-size: 20px
+}
+
+.back-to-cart:hover {
+    color: #2B2B2B;
+}
+
+.float-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.place-order-button {
+    border: none;
+    background-color: #fff;
+    font-size: 25px;
+    font-weight: bolder;
+    color: #2B2B2B;
+    text-decoration: none;
+}
+
+.place-order-button:hover {
+    color: #2B2B2B;
+}

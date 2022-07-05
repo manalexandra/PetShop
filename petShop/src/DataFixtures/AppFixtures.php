@@ -102,35 +102,35 @@ class AppFixtures extends Fixture
             'lastName' => 'Pop',
             'email' => 'andreipop@email.com',
             'password' => 'andrei',
-            'phoneNumber' => 0725146612,
+            'phoneNumber' => '0725146612',
         ],
         [
             'firstName' => 'Maria',
             'lastName' => 'Popescu',
             'email' => 'mariapopescu@email.com',
             'password' => 'maria',
-            'phoneNumber' => 0712547712,
+            'phoneNumber' => '0712547712',
         ],
         [
             'firstName' => 'Alex',
             'lastName' => 'Muresan',
             'email' => 'alexmuresan@email.com',
             'password' => 'alex',
-            'phoneNumber' => 0714255602,
+            'phoneNumber' => '0714255602',
         ],
         [
             'firstName' => 'Mihai',
             'lastName' => 'Lucaciu',
             'email' => 'mihailucaciu@email.com',
             'password' => 'mihai',
-            'phoneNumber' => 0725114425,
+            'phoneNumber' => '0725114425',
         ],
         [
             'firstName' => 'Andreea',
             'lastName' => 'Stan',
             'email' => 'andreeastan@email.com',
             'password' => 'andreea',
-            'phoneNumber' => 0714425322
+            'phoneNumber' => '0714425322'
         ],
     ];
 

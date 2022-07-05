@@ -57,14 +57,17 @@
                                 </div>
                                 <hr class="my-4">
                             {% endfor %}
-                            <div style="padding-left: 80%">
+                            <div class="float-right">
                                 <h4 style="font-weight: bolder">Final Price</h4>
-                                <h5 class="mb-0" style="padding-left: 10%">{{ shoppingCart.getFinalPrice }} €</h5>
+                                <h5 class="mb-0">{{ shoppingCart.getFinalPrice }} €</h5>
                             </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
+            {% if shoppingCartProducts is not empty %}
+                <a class="checkout-button" href="{{ path('app_checkout') }}"> Checkout <i class="fas fa-long-arrow-alt-right ms-2" style="color: #2B2B2B"></i></a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

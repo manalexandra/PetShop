@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block body %}
+    <section class="h-100 h-custom" style="background-color: #fff;">
+        <div class="mt-4">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="back-to-cart" href="{{ path('app_shopping_cart') }}"><i class="fas fa-long-arrow-alt-left ms-2" style="color: #2B2B2B"></i> Back to cart </a>
+                                        <h1 class="m-0">Checkout</h1>
+                                    </div>
+                                    <hr class="my-4">
+                                    {% for finalProductList in finalProductsList %}
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div>
+                                                    <img src="/images/accessories.jpg" class="img-fluid rounded-3" alt="Shopping item" style="width: 60px;">
+                                                </div>
+                                                <div class="ms-3">
+                                                    <h6 class="m-0">{{ finalProductList.product.name }}</h6>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center">
+                                                <div style="width: 120px;">
+                                                    <h6 class="fw-normal mb-0">{{ finalProductList.quantity }} {{ finalProductList.quantity == 1 ? 'item' : 'items'}} </h6>
+                                                </div>
+                                                <div style="width: 150px;">
+                                                    <h6 class="mb-0">{{ finalProductList.getTotalPrice }} €</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="my-4">
+                                    {% endfor %}
+                                    <div class="float-left">
+                                        <h4 style="font-weight: bolder">Final Price</h4>
+                                        <h5 class="mb-0">{{ shoppingCart.getFinalPrice }} €</h5>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="card rounded-3" style="background-color: #f1efef">
+                                        <div class="card-body">
+                                            <h4 class="mb-0">Personal details</h4>
+                                            <hr class="my-2">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-column align-items-start">
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>Email:</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>First Name:</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>Last Name:</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-0">
+                                                        <div>Phone Number:</div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>{{ user.email }}</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>{{ user.firstName }}</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-3">
+                                                        <div>{{ user.lastName }}</div>
+                                                    </div>
+                                                    <div class="form-outline form-white mb-1">
+                                                        <div>{{ user.phoneNumber }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card rounded-3 mt-3" style="background-color: #f1efef">
+                                        <div class="card-body">
+                                            <h4>Delivery Address</h4>
+                                            <hr class="my-2">
+                                            <div class="form-outline form-white mb-4 mt-4">
+                                                <h5>Country</h5>
+                                                <select type="text" class="form-control mt-2" id="country">
+                                                    <option {{user.getDeliveryAddress.country == 'Romania' ? 'selected' : ''}}>Romania</option>
+                                                    <option {{user.getDeliveryAddress.country == 'Moldova' ? 'selected' : ''}}>Moldova</option>
+                                                </select>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="county" value="{{ user.getDeliveryAddress ? user.deliveryAddress.county : '' }}" class="form-control" placeholder="County"/>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="city" value="{{ user.getDeliveryAddress ? user.deliveryAddress.city : '' }}" class="form-control" placeholder="City"/>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="street" value="{{ user.getDeliveryAddress ? user.deliveryAddress.street : '' }}" class="form-control" placeholder="Street"/>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="number" value="{{ user.getDeliveryAddress ? user.deliveryAddress.number : '' }}" class="form-control" placeholder="Number"/>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-outline form-white mb-4">
+                                                <input type="text" id="postalCode" value="{{ user.getDeliveryAddress ? user.deliveryAddress.postalCode : '' }}" class="form-control" placeholder="Postal Code"/>
+                                                <div class="text-danger mt-2">
+
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-light" onclick="saveAddress(event, '{{ path('app_validate_address') }}', '{{ path('app_save_address') }}')" style="color: #2B2B2B; width: 300px">Save new Delivery Address</button>
+                                        </div>
+                                    </div>
+                                    <div class="card rounded-3 mt-3" style="background-color: #f1efef">
+                                        <div class="card-body">
+                                            <h4 class="mb-0">Payment Method</h4>
+                                            <hr class="my-2">
+                                            <div class="d-flex flex-row pb-3">
+                                                <div class="d-flex align-items-center pe-2">
+                                                    <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel1v" checked/>
+                                                </div>
+                                                <div class="rounded border w-100 p-3">
+                                                    <p class="d-flex align-items-center mb-0">
+                                                        <i class="fab fa-cc-visa fa-2x fa-lg text-dark pe-2"></i> Credit Card
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row mb-1">
+                                                <div class="d-flex align-items-center pe-2">
+                                                    <input class="form-check-input" type="radio" name="radioNoLabel" id="radioNoLabel2v"/>
+                                                </div>
+                                                <div class="rounded border w-100 p-3">
+                                                    <p class="d-flex align-items-center mb-0">
+                                                        <i class="fas fa-euro-sign" style="font-weight: 900; width: 20px"></i> Cash
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

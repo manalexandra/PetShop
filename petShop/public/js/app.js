@@ -38,6 +38,51 @@ function updateQuantityFromCart(event) {
     })
 }
 
+function saveAddress(event, validationUrl, url) {
+    var country = $('#country').val();
+    var county = $('#county').val();
+    var city = $('#city').val();
+    var street = $('#street').val();
+    var number = $('#number').val();
+    var postalCode = $('#postalCode').val();
+    $.ajax({
+        url: validationUrl,
+        method: 'POST',
+        data: {
+            country: country,
+            county: county,
+            city: city,
+            street: street,
+            number: number,
+            postalCode: postalCode,
+        },
+        success: function (data) {
+            if(data['status'] == 200){
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: {
+                        country: country,
+                        county: county,
+                        city: city,
+                        street: street,
+                        number: number,
+                        postalCode: postalCode,
+                    },
+                }).then(function (data){
+                    $('#body').html(data);
+                })
+            }
+            $('#country').next().html(data['messages'].country);
+            $('#county').next().html(data['messages'].county);
+            $('#city').next().html(data['messages'].city);
+            $('#street').next().html(data['messages'].street);
+            $('#number').next().html(data['messages'].number);
+            $('#postalCode').next().html(data['messages'].postalCode);
+        },
+    });
+}
+
 window.setTimeout(function() {
     $('#flash-message').fadeTo(500, 0).slideUp(500, function(){
         $(this).remove();
