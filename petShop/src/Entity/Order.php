@@ -51,6 +51,11 @@ class Order
      */
     private $orderProducts;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $orderNumber;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
@@ -147,6 +152,18 @@ class Order
                 $orderProduct->setOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOrderNumber(): ?string
+    {
+        return $this->orderNumber;
+    }
+
+    public function setOrderNumber(string $orderNumber): self
+    {
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }

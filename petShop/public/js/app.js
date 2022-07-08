@@ -38,7 +38,7 @@ function updateQuantityFromCart(event) {
     })
 }
 
-function saveAddress(event, validationUrl, url) {
+function placeOrder(event, validationUrl, saveAddressUrl, placeOrderUrl, homepageUrl) {
     var country = $('#country').val();
     var county = $('#county').val();
     var city = $('#city').val();
@@ -55,11 +55,12 @@ function saveAddress(event, validationUrl, url) {
             street: street,
             number: number,
             postalCode: postalCode,
-        },
-        success: function (data) {
-            if(data['status'] == 200){
+        }
+    }).then(function (data) {
+        if (data['status'] == 200) {
+            if ($('#placeOrderCheckbox').is(':checked')) {
                 $.ajax({
-                    url: url,
+                    url: saveAddressUrl,
                     method: 'POST',
                     data: {
                         country: country,
@@ -69,27 +70,53 @@ function saveAddress(event, validationUrl, url) {
                         number: number,
                         postalCode: postalCode,
                     },
-                }).then(function (data){
+                }).then(function () {
+                    $.ajax({
+                        url: placeOrderUrl,
+                        method: 'POST',
+                        data: {
+                            saveAddress: true
+                        }
+                    }).then(function (data) {
+                        $('#body').html(data);
+                        window.history.pushState("data", "Animax", homepageUrl);
+                    })
+                })
+            } else {
+                $.ajax({
+                    url: placeOrderUrl,
+                    method: 'POST',
+                    data: {
+                        saveAddress: false,
+                        country: country,
+                        county: county,
+                        city: city,
+                        street: street,
+                        number: number,
+                        postalCode: postalCode,
+                    }
+                }).then(function (data) {
                     $('#body').html(data);
+                    window.history.pushState("data", "Animax", homepageUrl);
                 })
             }
+        } else {
             $('#country').next().html(data['messages'].country);
             $('#county').next().html(data['messages'].county);
             $('#city').next().html(data['messages'].city);
             $('#street').next().html(data['messages'].street);
             $('#number').next().html(data['messages'].number);
             $('#postalCode').next().html(data['messages'].postalCode);
-        },
+        }
     });
 }
 
-window.setTimeout(function() {
+window.setTimeout(closeFlashMessage,4000);
+
+$('#close').on("click", closeFlashMessage);
+
+function closeFlashMessage() {
     $('#flash-message').fadeTo(500, 0).slideUp(500, function(){
         $(this).remove();
     });
-}, 4000);
-
-$('#close').on("click", function (event) {
-    $(this).parent().fadeOut();
-    event.preventDefault();
-});
+}

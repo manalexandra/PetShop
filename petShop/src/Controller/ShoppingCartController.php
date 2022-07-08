@@ -44,6 +44,23 @@ class ShoppingCartController extends AbstractController
             'shoppingCart' => $shoppingCart,
         ]);
 
+        foreach ($shoppingCartProducts as $shoppingCartProduct){
+            $product = $shoppingCartProduct->getProduct();
+            $shoppingCartProductQuantity = $shoppingCartProduct->getQuantity();
+            $productStockQuantity = $product->getQuantity();
+            $productStockQuantity -= $shoppingCartProductQuantity;
+
+            if ($productStockQuantity < 0) {
+                $this->addFlash('error', 'Some products are not in stock anymore and they have been removed from your cart!');
+                $manager->remove($shoppingCartProduct);
+                $manager->flush();
+            }
+        }
+
+        $shoppingCartProducts = $shoppingCartProductRepository->findBy([
+            'shoppingCart' => $shoppingCart,
+        ]);
+
         return $this->render('shoppingCart/shoppingCart.html.twig', [
             'shoppingCartProducts' => $shoppingCartProducts,
             'shoppingCart' => $shoppingCart,
