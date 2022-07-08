@@ -18,12 +18,12 @@
     {% for message in flashes %}
         <div id="flash-message">
             {% if ( label == 'success') %}
-                <div class="alert alert-success" style="position: absolute; right: 25%; left: 20%; top: 150px">
+                <div class="alert alert-success" style="position: absolute; right: 10%; left: 10%; top: 150px">
                     {{ message }}
                     <button id="close" type="button" class="btn-close" aria-label="Close" style="float: right"></button>
                 </div>
             {% elseif ( label == 'error') %}
-                <div class="alert alert-danger" style="position: absolute; right: 25%; left: 20%; top: 150px">
+                <div class="alert alert-danger" style="position: absolute; right: 10%; left: 10%; top: 150px">
                     {{ message }}
                     <button id="close" type="button" class="btn-close" aria-label="Close" style="float: right"></button>
                 </div>

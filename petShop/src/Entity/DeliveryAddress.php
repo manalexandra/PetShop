@@ -201,4 +201,9 @@ class DeliveryAddress
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getCountry().', '.$this->getCounty().', '.$this->getCity().', '.$this->getStreet().', '.$this->getNumber().', '.$this->getPostalCode();
+    }
 }

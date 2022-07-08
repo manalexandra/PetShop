@@ -208,3 +208,13 @@ footer {
 .place-order-button:hover {
     color: #2B2B2B;
 }
+
+.order-list {
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+.order-address {
+    padding-left: 10px;
+    font-size: 17px;
+}

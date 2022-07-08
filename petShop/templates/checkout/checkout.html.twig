@@ -129,7 +129,12 @@
                                                 </div>
                                             </div>
 
-                                            <button class="btn btn-light" onclick="saveAddress(event, '{{ path('app_validate_address') }}', '{{ path('app_save_address') }}')" style="color: #2B2B2B; width: 300px">Save new Delivery Address</button>
+                                            <div class="d-flex align-items-center">
+                                                <input id="placeOrderCheckbox" type="checkbox" style="margin-right: 10px">
+                                                <label>
+                                                    Save Delivery Address
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card rounded-3 mt-3" style="background-color: #f1efef">
@@ -161,6 +166,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="float-right mt-3">
+                    <div class="d-flex align-items-center">
+                        <button class="place-order-button" onclick="placeOrder(event, '{{ path('app_validate_address') }}', '{{ path('app_save_address') }}', '{{ path('app_place_order') }}', '{{ path('app_homepage') }}')"> Place Order </button><i class="fas fa-long-arrow-alt-right ms-2" style="color: #2B2B2B"></i>
                     </div>
                 </div>
             </div>
