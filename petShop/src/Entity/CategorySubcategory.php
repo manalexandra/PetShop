@@ -99,4 +99,9 @@ class CategorySubcategory
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getCategory()." - ".$this->getSubcategory();
+    }
 }
