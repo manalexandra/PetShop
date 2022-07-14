@@ -120,3 +120,39 @@ function closeFlashMessage() {
         $(this).remove();
     });
 }
+
+function updatePageByFilters(event){
+    var currentUrl = window.location.href.split("?")[0];
+    var defaultUrl = 'http://petshop.local/index.php/products/';
+    var url = currentUrl.includes('/products') ? currentUrl : defaultUrl;
+
+    var sortDropdown = $('#sortDropdown option:selected') ?? null;
+
+    var sortedOptionText = sortDropdown.text();
+    var sort = sortDropdown.val() ? sortDropdown.val().split("-") : [];
+
+    var sortBy = sort[0] === 'null' ? null : sort[0];
+    var direction = sort[1] === 'null' ? null : sort[1];
+
+    var minPrice = $('#minPrice').val();
+    var maxPrice = $('#maxPrice').val();
+
+    var productName = $('#productName').val();
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        data: {
+            sortedOptionText: sortedOptionText,
+            sortBy: sortBy,
+            direction: direction,
+            minPrice: minPrice,
+            maxPrice: maxPrice,
+            productName: productName,
+        }
+    }).then(function (data){
+        var newUrl = $(data).filter('#currentUrl').html();
+        newUrl = newUrl.replaceAll("&amp;", "&");
+        window.location = newUrl;
+    })
+}

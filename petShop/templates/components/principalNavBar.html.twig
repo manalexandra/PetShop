@@ -27,8 +27,8 @@
             {% endif %}
         </ul>
     </div>
-    <form class="form-inline d-flex">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success mx-2" type="submit">Search</button>
-    </form>
+    <div class="form-inline d-flex">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="productName" value="{{ productName|default }}">
+        <button class="btn btn-outline-success mx-2" onclick="updatePageByFilters(event)">Search</button>
+    </div>
 </nav>

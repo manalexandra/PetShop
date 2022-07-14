@@ -218,3 +218,37 @@ footer {
     padding-left: 10px;
     font-size: 17px;
 }
+
+.pagination {
+    float: right;
+    padding-right: 20px;
+}
+
+.price-range {
+    width: 70px;
+    border-radius: 8px;
+    border-color: mediumseagreen;
+    margin-top: 20px;
+    border-width: 1px;
+}
+
+.sort-dropdown {
+    width: 170px;
+    border-radius: 8px;
+    border-color: mediumseagreen;
+    margin-top: 20px;
+    border-width: 1px;
+}
+
+.filter-button {
+    border: none;
+    background-color: white;
+    width: 200px;
+}
+
+.filter-choose-button {
+    border-color: mediumseagreen;
+    border-radius: 8px;
+    background-color: white;
+    width: 150px;
+}
