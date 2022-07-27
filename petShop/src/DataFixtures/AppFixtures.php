@@ -134,6 +134,80 @@ class AppFixtures extends Fixture
         ],
     ];
 
+    private const DOG_PICTURES = [
+        'dog.jpg',
+        'dog1.jpg',
+        'dog2.jpg',
+        'dog3.jpg',
+        'dog4.jpg',
+        'dogLeash.jpg',
+        'dogLeash1.jpg',
+        'dogLeash2.jpg',
+        'dogLeash3.jpg',
+        'dogLeash4.jpg',
+        'dogClothes.jpg',
+        'dogClothes1.jpg',
+        'dogClothes2.jpg',
+        'dogClothes3.jpg',
+        'dogClothes4.jpg',
+        'dogCage.jpg',
+        'dogCage1.jpg',
+        'dogCage2.jpg',
+        'dogCage3.jpg',
+        'dogCage4.jpg',
+        'dogToy.jpg',
+        'dogToy1.jpg',
+        'dogToy2.jpg',
+        'dogToy3.jpg',
+        'dogToy4.jpg',
+    ];
+
+    private const CAT_PICTURES = [
+        'cat.jpg',
+        'cat1.jpg',
+        'cat2.jpg',
+        'cat3.jpg',
+        'cat4.jpg',
+        'catLeash.jpg',
+        'catLeash1.jpg',
+        'catLeash2.jpg',
+        'catLeash3.jpg',
+        'catLeash4.jpg',
+        'catClothes.jpg',
+        'catClothes1.jpg',
+        'catClothes2.jpg',
+        'catClothes3.jpg',
+        'catClothes4.jpg',
+        'catCage.jpg',
+        'catCage1.jpg',
+        'catCage2.jpg',
+        'catCage3.jpg',
+        'catCage4.jpg',
+        'catToy.jpg',
+        'catToy1.jpg',
+        'catToy2.jpg',
+        'catToy3.jpg',
+        'catToy4.jpg',
+    ];
+
+    private const BIRD_PICTURES = [
+        'bird.jpg',
+        'bird1.jpg',
+        'bird2.jpg',
+        'bird3.jpg',
+        'bird4.jpg',
+        'birdCage.jpg',
+        'birdCage1.jpg',
+        'birdCage2.jpg',
+        'birdCage3.jpg',
+        'birdCage4.jpg',
+        'birdToy.jpg',
+        'birdToy1.jpg',
+        'birdToy2.jpg',
+        'birdToy3.jpg',
+        'birdToy4.jpg',
+    ];
+
     private const DESCRIPTION = "Lorem ipsum color sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
     private $passwordHasher;
@@ -222,6 +296,15 @@ class AppFixtures extends Fixture
                 ->setDeliveryAddress($this->getReference(self::DELIVERYADDRESS[$i]['street']));
             $manager->persist($user);
         }
+        $user = new User();
+        $user
+            ->setFirstName('admin')
+            ->setLastName('admin')
+            ->setEmail('admin@email.com')
+            ->setPassword($this->passwordHasher->hashPassword($user, 'admin1'))
+            ->setPhoneNumber('0742589632')
+            ->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
         $manager->flush();
     }
 
@@ -234,10 +317,52 @@ class AppFixtures extends Fixture
                 ->setPrice(rand(1000, 50000)/100)
                 ->setInStock(rand(0,1) == 1)
                 ->setQuantity($product->isInStock() ? rand(1,150) : 0)
-                ->setImage('jpg '.$i)
                 ->setDescription(substr(self::DESCRIPTION, rand(0,100), rand(-100,-1)))
                 ->setName($this->getReference($randomCategorySubcategory)->getSubcategory()->getName().' '.$i)
                 ->setCategorySubcategory($this->getReference($randomCategorySubcategory));
+
+            switch ($randomCategorySubcategory){
+                case 0:
+                    $product->setImage(self::DOG_PICTURES[rand(0,4)]);
+                    break;
+                case 1:
+                    $product->setImage(self::DOG_PICTURES[rand(5,9)]);
+                    break;
+                case 2:
+                    $product->setImage(self::DOG_PICTURES[rand(10, 14)]);
+                    break;
+                case 3:
+                    $product->setImage(self::DOG_PICTURES[rand(15, 19)]);
+                    break;
+                case 4:
+                    $product->setImage(self::DOG_PICTURES[rand(20, 24)]);
+                    break;
+                case 5:
+                    $product->setImage(self::CAT_PICTURES[rand(0,4)]);
+                    break;
+                case 6:
+                    $product->setImage(self::CAT_PICTURES[rand(5,9)]);
+                    break;
+                case 7:
+                    $product->setImage(self::CAT_PICTURES[rand(10, 14)]);
+                    break;
+                case 8:
+                    $product->setImage(self::CAT_PICTURES[rand(15, 19)]);
+                    break;
+                case 9:
+                    $product->setImage(self::CAT_PICTURES[rand(20, 24)]);
+                    break;
+                case 10:
+                    $product->setImage(self::BIRD_PICTURES[rand(0,4)]);
+                    break;
+                case 11:
+                    $product->setImage(self::BIRD_PICTURES[rand(5,9)]);
+                    break;
+                case 12:
+                    $product->setImage(self::BIRD_PICTURES[rand(10, 14)]);
+                    break;
+            }
+
             $manager->persist($product);
         }
         $manager->flush();

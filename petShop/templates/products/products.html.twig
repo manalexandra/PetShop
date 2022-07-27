@@ -23,7 +23,7 @@
     {% for product in pagination %}
         <div class="col-md-4">
             <div class="card mb-4">
-                <img src="/images/accessories.jpg" class="card-img-top">
+                <img src="{{ asset("images/"~product.image) }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title", style="font-weight: bold; padding-bottom: 5px">{{ product.name }} - {{ product.brand.name }}</h5>
                     {% if( product.inStock == 1 ) %}

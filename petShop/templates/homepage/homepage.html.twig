@@ -2,11 +2,36 @@
 
 {% block body %}
     <div class="px-4 d-flex">
-        {{ include('components/categories.html.twig') }}
+        {{ include('components/categories.html.twig', {
+            'categorySubcategories': categorySubcategories
+        }) }}
 
-        <div class="center-img">
-            <img src="{{ asset('images/petsHomepg.jpg') }}" alt="Pets" width="70%" class="m-5">
+        <div class="slideshow-container mt-5">
+
+            <div class="mySlides fade" id="image">
+                <img src="{{ asset('images/petsHomepg.jpg') }}" class="homepage-image">
+            </div>
+
+            <div class="mySlides fade" id="image">
+                <img src="{{ asset('images/petsHomepg4.jpg') }}" class="homepage-image">
+            </div>
+
+            <div class="mySlides fade" id="image">
+                <img src="{{ asset('images/petsHomepg2.jpg') }}" class="homepage-image">
+            </div>
+
+            <div class="mySlides fade" id="image">
+                <img src="{{ asset('images/petsHomepg1.jpg') }}" class="homepage-image">
+            </div>
+
+            <div class="mySlides fade" id="image">
+                <img src="{{ asset('images/petsHomepg3.jpg') }}" class="homepage-image">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
+        <br>
 
     </div>
 

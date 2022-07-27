@@ -252,3 +252,54 @@ footer {
     background-color: white;
     width: 150px;
 }
+
+* {box-sizing:border-box}
+
+.slideshow-container {
+    max-width: 70%;
+    position: relative;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: transparent;
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 100000000s;
+}
+
+@keyframes fade {
+    from {opacity: 1}
+    to {opacity: 1}
+}
+
+.homepage-image {
+    width: 100%;
+    border-radius: 20px;
+}
