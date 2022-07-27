@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -27,7 +28,9 @@ class ProductCrudController extends AbstractCrudController
             IntegerField::new('price'),
             BooleanField::new('inStock'),
             IntegerField::new('quantity'),
-            TextField::new('image'),
+            ImageField::new('image')
+                ->setBasePath('images')
+                ->setUploadDir('public/uploads/images'),
             TextField::new('description')->onlyOnForms(),
         ];
     }

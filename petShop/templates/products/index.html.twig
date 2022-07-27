@@ -4,14 +4,15 @@
 
 {% block body %}
     <div class="px-4 d-flex">
-        {{ include('components/categories.html.twig') }}
+        {{ include('components/categories.html.twig', {
+            'categorySubcategories': categorySubcategories
+        }) }}
 
         <div class="container" id="productList">
             {{ include('products/products.html.twig', {
                 'pagination': pagination,
             }) }}
         </div>
-
     </div>
     <div class="pagination">
         {{ knp_pagination_render(pagination) }}

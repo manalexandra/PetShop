@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorySubcategoryRepository;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ class ProductsController extends AbstractController
     /**
      * @Route("/products/{category}/{subcategory}", name="app_products", defaults={"subcategory" = null, "category" = null})
      */
-    public function productsListView($category, $subcategory, ProductRepository $productRepository, PaginatorInterface $paginator, Request $request): Response
+    public function productsListView($category, $subcategory, ProductRepository $productRepository, PaginatorInterface $paginator, Request $request, CategorySubcategoryRepository $categorySubcategoryRepository): Response
     {
         $category = $category ?? '';
         $subcategory = $subcategory ?? '';
@@ -36,6 +37,8 @@ class ProductsController extends AbstractController
             6
         );
 
+        $categorySubcategories = $categorySubcategoryRepository->findAll();
+
         return $this->render('products/index.html.twig', [
             'pagination' => $pagination,
             'selectedOptionText' => $sortedOptionText,
@@ -43,6 +46,7 @@ class ProductsController extends AbstractController
             'minPrice' => $minPrice,
             'maxPrice' => $maxPrice,
             'productName' => $productName,
+            'categorySubcategories' => $categorySubcategories,
         ]);
     }
 }

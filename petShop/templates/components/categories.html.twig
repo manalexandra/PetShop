@@ -1,58 +1,19 @@
 <div class="category-banner" style="padding-top: 20px">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs'}) }}" style="font-size: xx-large; color: #444444">Dogs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs', subcategory: 'Food'}) }}" style="margin-left: 20px; color: #444444">Food</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs', subcategory: 'Leashes & Collars'}) }}" style="margin-left: 20px; color: #444444">Leashes & Collars</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs', subcategory: 'Clothes & Accessories'}) }}" style="margin-left: 20px; color: #444444">Clothes & Accessories</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs', subcategory: 'Beds & Cages'}) }}" style="margin-left: 20px; color: #444444">Beds & Cages</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Dogs', subcategory: 'Toys'}) }}" style="margin-left: 20px; color: #444444">Toys</a>
-        </li>
-    </ul>
-
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats'}) }}" style="font-size: xx-large; color: #444444">Cats</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats', subcategory: 'Food'}) }}" style="margin-left: 20px; color: #444444">Food</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats', subcategory: 'Leashes & Collars'}) }}" style="margin-left: 20px; color: #444444">Leashes & Collars</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats', subcategory: 'Clothes & Accessories'}) }}" style="margin-left: 20px; color: #444444">Clothes & Accessories</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats', subcategory: 'Beds & Cages'}) }}" style="margin-left: 20px; color: #444444">Beds & Cages</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Cats', subcategory: 'Toys'}) }}" style="margin-left: 20px; color: #444444">Toys</a>
-        </li>
-    </ul>
-
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Birds'}) }}" style="font-size: xx-large; color: #444444">Birds</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Birds', subcategory: 'Food'}) }}" style="margin-left: 20px; color: #444444">Food</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Birds', subcategory: 'Bird Cages'}) }}" style="margin-left: 20px; color: #444444">Bird cages</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_products', {category: 'Birds', subcategory: 'Accessories for bird cages'}) }}" style="margin-left: 20px; color: #444444">Accessories for bird cages</a>
-        </li>
-    </ul>
+    {% set categories = ['Dogs', 'Cats', 'Birds'] %}
+    {% for category in categories %}
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_products', {category: category}) }}" style="font-size: xx-large; color: #444444">{{ category }}</a>
+            </li>
+            {% for categorySubcategory in categorySubcategories %}
+                {% set categoryName = categorySubcategory.category.animalType %}
+                {% set subcategoryName = categorySubcategory.subcategory.name %}
+                {% if categoryName == category %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_products', {category: categoryName, subcategory: subcategoryName}) }}" style="margin-left: 20px; color: #444444">{{subcategoryName}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </div>
