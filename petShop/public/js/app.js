@@ -2,15 +2,15 @@ function addToCart(event) {
     var currentUrl = window.location.href;
     var url = event.target.getAttribute('data-url');
     var quantity = $('#quantity').val() ?? 1;
-    url = url.slice(0,-1) + quantity;
+    url = url.slice(0, -1) + quantity;
     $.ajax({
         url: url,
         method: 'POST'
-    }).then(function (){
+    }).then(function () {
         $.ajax({
             url: currentUrl,
             method: 'GET'
-        }).then(function (data){
+        }).then(function (data) {
             $('#body').html(data);
         })
     })
@@ -20,7 +20,7 @@ function removeFromCart(event, url) {
     $.ajax({
         url: url,
         method: 'DELETE'
-    }).then(function (data){
+    }).then(function (data) {
         $('#body').html(data);
     })
 }
@@ -29,11 +29,11 @@ function updateQuantityFromCart(event) {
     event.preventDefault();
     var url = event.target.getAttribute('data-url');
     var quantity = event.target.value;
-    url = url.slice(0,-1) + quantity;
+    url = url.slice(0, -1) + quantity;
     $.ajax({
         url: url,
         method: 'POST'
-    }).then(function (data){
+    }).then(function (data) {
         $('#body').html(data);
     })
 }
@@ -111,17 +111,17 @@ function placeOrder(event, validationUrl, saveAddressUrl, placeOrderUrl, homepag
     });
 }
 
-window.setTimeout(closeFlashMessage,4000);
+window.setTimeout(closeFlashMessage, 4000);
 
 $('#close').on("click", closeFlashMessage);
 
 function closeFlashMessage() {
-    $('#flash-message').fadeTo(500, 0).slideUp(500, function(){
+    $('#flash-message').fadeTo(500, 0).slideUp(500, function () {
         $(this).remove();
     });
 }
 
-function updatePageByFilters(event){
+function updatePageByFilters(event) {
     var currentUrl = window.location.href.split("?")[0];
     var defaultUrl = 'http://petshop.local/index.php/products/';
     var url = currentUrl.includes('/products') ? currentUrl : defaultUrl;
@@ -150,27 +150,33 @@ function updatePageByFilters(event){
             maxPrice: maxPrice,
             productName: productName,
         }
-    }).then(function (data){
+    }).then(function (data) {
         var newUrl = $(data).filter('#currentUrl').html();
         newUrl = newUrl.replaceAll("&amp;", "&");
         window.location = newUrl;
     })
 }
 
-let slideIndex = 1;
+slideIndex = 1;
 showSlides(slideIndex);
 
-function plusSlides(n=1) {
+function plusSlides(n = 1) {
     showSlides(slideIndex += n);
 }
 
 function showSlides(n) {
     let i;
-    let slides = document.getElementsByClassName("mySlides");
-    if (n > slides.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    let slides = document.getElementsByClassName("mySlides")
+    if (slides[0] !== undefined) {
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
     }
-    slides[slideIndex-1].style.display = "block";
 }
