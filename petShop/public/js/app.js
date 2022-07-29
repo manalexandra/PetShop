@@ -167,7 +167,7 @@ function plusSlides(n = 1) {
 function showSlides(n) {
     let i;
     let slides = document.getElementsByClassName("mySlides")
-    if (slides[0] !== undefined) {
+    if (slides[0]) {
         if (n > slides.length) {
             slideIndex = 1
         }
