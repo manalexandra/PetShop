@@ -121,9 +121,8 @@ function closeFlashMessage() {
     });
 }
 
-function updatePageByFilters(event) {
+function updatePageByFilters(defaultUrl) {
     var currentUrl = window.location.href.split("?")[0];
-    var defaultUrl = 'http://petshop.local/index.php/products/';
     var url = currentUrl.includes('/products') ? currentUrl : defaultUrl;
 
     var sortDropdown = $('#sortDropdown option:selected') ?? null;
