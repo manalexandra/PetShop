@@ -36,12 +36,13 @@
                                         <h5 class="order-address"> {{ order.deliveryAddress }} </h5>
                                     </div>
                                     {% if order.getStatus == "Canceled" %}
-                                        <div class="progress progress-bar bg-danger" >
-                                            This order was canceled.
+                                        <div class="progress progress-bar-striped bg-danger" ></div>
+                                        <div class="d-flex justify-content-center mt-1 fw-bolder">
+                                            This order was canceled!
                                         </div>
                                     {% else %}
                                         <div class="progress">
-                                            <div class="progress-bar {{ order.getStatus == "Delivered" ? 'bg-success' : order.getStatus == "Pending"  ? 'progress-bar-striped progress-bar-animated bg-warning ' }}"
+                                            <div class="progress-bar {{ order.getStatus == "Delivered" ? 'progress-bar-striped bg-success' : order.getStatus == "Pending"  ? 'progress-bar-striped progress-bar-animated bg-warning ' }}"
                                                  role="progressbar" aria-valuenow="75" aria-valuemin="0"
                                                  aria-valuemax="100"
                                                  style={{ order.getStatus == "Delivered" ? "width:100%" : order.getStatus == "Pending"  ? "width:48%" }}></div>
