@@ -10,7 +10,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Faker\Core\Number;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -21,16 +23,21 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $imageField = ImageField::new('image')
+            ->setBasePath('images')
+            ->setUploadDir('public/uploads/images');
+
+        if ($pageName != 'new') {
+            $imageField->setRequired(false);
+        }
         return [
             TextField::new('name'),
             AssociationField::new('brand'),
             AssociationField::new('categorySubcategory'),
-            IntegerField::new('price'),
+            NumberField::new('price'),
             BooleanField::new('inStock'),
             IntegerField::new('quantity'),
-            ImageField::new('image')
-                ->setBasePath('images')
-                ->setUploadDir('public/uploads/images'),
+            $imageField,
             TextField::new('description')->onlyOnForms(),
         ];
     }
@@ -38,7 +45,6 @@ class ProductCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->disable( Action::DELETE)
-            ;
+            ->disable(Action::DELETE);
     }
 }
