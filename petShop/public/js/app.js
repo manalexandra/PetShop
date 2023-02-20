@@ -179,3 +179,64 @@ function showSlides(n) {
         slides[slideIndex - 1].style.display = "block";
     }
 }
+
+starRating("rating_form_stars_0");
+starRating("rating_form_stars_1");
+starRating("rating_form_stars_2");
+starRating("rating_form_stars_3");
+starRating("rating_form_stars_4");
+
+// function starRating(id) {
+//     $('#' + id).css("display", "none");
+//
+//     var star = $('label[for="' + id + '"]');
+//
+//     var starNumber = id.split("_")[3];
+//
+//     star.css("mix-blend-mode", "luminosity");
+//
+//     star.hover(function () {
+//         for (var i = 0; i <= starNumber; i++) {
+//             $('label[for="rating_form_stars_' + i + '"]').addClass("star-active");
+//         }
+//     }, function () {
+//         if (!star.hasClass("active")) {
+//             for (var i = 0; i <= starNumber; i++) {
+//                 $('label[for="rating_form_stars_' + i + '"]').removeClass("star-active");
+//             }
+//         }
+//     });
+//
+//     star.click(function () {
+//         for (var i = 0; i <= 4; i++) {
+//             $('label[for="rating_form_stars_' + i + '"]').removeClass("active");
+//             $('label[for="rating_form_stars_' + i + '"]').removeClass("star-active");
+//             $('label[for="rating_form_stars_' + i + '"]').off("mouseenter mouseleave");
+//             $('#' + id).prop("checked", true);
+//         }
+//         if (!star.hasClass("active")) {
+//             for (var i = 0; i <= starNumber; i++) {
+//                 $('label[for="rating_form_stars_' + i + '"]').addClass("active");
+//                 $('label[for="rating_form_stars_' + i + '"]').addClass("star-active");
+//             }
+//         }
+//     });
+// }
+
+function starRating(id) {
+    $('#' + id).hide();
+
+    var star = $('label[for="' + id + '"]').css("mix-blend-mode", "luminosity");
+
+    star.hover(function () {
+        $('label[for^="rating_form_stars_"]').slice(0, Number(this.htmlFor.split("_")[3])+1).addClass("star-active");
+    }, function () {
+        $('label[for^="rating_form_stars_"]').not(".active").removeClass("star-active");
+    });
+
+    star.click(function () {
+        $('label[for^="rating_form_stars_"]').removeClass("active star-active").off("mouseenter mouseleave");
+        $('#' + id).prop("checked", true);
+        $('label[for^="rating_form_stars_"]').slice(0, Number(this.htmlFor.split("_")[3])+1).addClass("active star-active");
+    });
+}

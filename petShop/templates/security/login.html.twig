@@ -3,7 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" style="padding: 20px 50% 20px 60px;">
+<form method="post" style="padding: 50px 50% 20px 60px;">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -14,7 +14,7 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal" style="padding-top: 35px">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
     <label for="inputEmail" style="padding-left: 10px">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword" style="padding-left: 10px; padding-top: 10px">Password</label>
@@ -24,19 +24,7 @@
            value="{{ csrf_token('authenticate') }}"
     >
 
-{#    TODO: Remember me functionality-later#}
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
-
-    <button class="btn btn-lg btn-primary" type="submit" style="margin-top: 20px">
+    <button class="btn btn-lg btn-primary" type="submit" style="margin-top: 20px; margin-bottom: 70px">
         Sign in
     </button>
 </form>

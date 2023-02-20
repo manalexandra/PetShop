@@ -3,7 +3,7 @@
 {% block title %}Register!{% endblock %}
 
 {% block body %}
-    <div style="padding: 20px 0% 20% 60px;">
+    <div style="padding: 0 0 0 60px;">
         {% if app.user %}
             <div class="mb-3">
                 You are logged in as {{ app.user.userIdentifier }}! <a href="{{ path('app_logout') }}">Log Out</a>, then you can register.
@@ -16,7 +16,7 @@
             <div style="padding-left: 10px">
                 {{ form_label(registrationForm.email) }}
             </div>
-            {{ form_widget(registrationForm.email) }}
+            {{ form_widget(registrationForm.email, {'attr': {'style': 'width: 40%; border-radius: 7px; border-width: 0.5px; border-color: lightgrey'}}) }}
             <div class="text-danger">
                 {{ form_errors(registrationForm.email) }}
             </div>
@@ -24,7 +24,7 @@
             <div style="padding-left: 10px; padding-top: 10px">
                 {{ form_label(registrationForm.firstName) }}
             </div>
-            {{ form_widget(registrationForm.firstName) }}
+            {{ form_widget(registrationForm.firstName, {'attr': {'style': 'width: 40%; border-radius: 7px; border-width: 0.5px; border-color: lightgrey'}}) }}
             <div class="text-danger">
                 {{ form_errors(registrationForm.firstName) }}
             </div>
@@ -32,7 +32,7 @@
             <div style="padding-left: 10px; padding-top: 10px">
                 {{ form_label(registrationForm.lastName) }}
             </div>
-            {{ form_widget(registrationForm.lastName) }}
+            {{ form_widget(registrationForm.lastName, {'attr': {'style': 'width: 40%; border-radius: 7px; border-width: 0.5px; border-color: lightgrey'}}) }}
             <div class="text-danger">
                 {{ form_errors(registrationForm.lastName) }}
             </div>
@@ -40,7 +40,7 @@
             <div style="padding-left: 10px; padding-top: 10px">
                 {{ form_label(registrationForm.phoneNumber) }}
             </div>
-            {{ form_widget(registrationForm.phoneNumber) }}
+            {{ form_widget(registrationForm.phoneNumber, {'attr': {'style': 'width: 40%; border-radius: 7px; border-width: 0.5px; border-color: lightgrey'}}) }}
             <div class="text-danger">
                 {{ form_errors(registrationForm.phoneNumber) }}
             </div>
@@ -48,7 +48,7 @@
             <div style="padding-left: 10px; padding-top: 10px">
                 <label for="inputPassword">Password</label>
             </div>
-            {{ form_widget(registrationForm.plainPassword) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'style': 'width: 40%; border-radius: 7px; border-width: 0.5px; border-color: lightgrey'}}) }}
 
             <div class="text-danger">
                 {{ form_errors(registrationForm.plainPassword) }}

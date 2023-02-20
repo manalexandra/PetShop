@@ -58,13 +58,8 @@ final class Version20220608135058 extends AbstractMigration
         $this->addSql('ALTER TABLE user CHANGE phone_number phone_number VARCHAR(10) NOT NULL');
         $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E62312469DE2');
         $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E6235DC6FE57');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E62312469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E6235DC6FE57 FOREIGN KEY (subcategory_id) REFERENCES subcategory (id)');
         $this->addSql('ALTER TABLE `order` ADD order_number VARCHAR(10) NOT NULL');
         $this->addSql('ALTER TABLE user CHANGE delivery_address_id delivery_address_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E62312469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E6235DC6FE57 FOREIGN KEY (subcategory_id) REFERENCES subcategory (id)');
-        $this->addSql('ALTER TABLE `order` ADD order_number VARCHAR(10) NOT NULL');
         $this->addSql('ALTER TABLE user CHANGE delivery_address_id delivery_address_id INT DEFAULT NULL');
 
     }
@@ -114,15 +109,8 @@ final class Version20220608135058 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_D34A04AD5DC6FE57 ON product (subcategory_id)');
         $this->addSql('ALTER TABLE user CHANGE phone_number phone_number INT NOT NULL');
         $this->addSql('ALTER TABLE category_subcategory MODIFY id INT NOT NULL');
-        $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E62312469DE2');
-        $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E6235DC6FE57');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E62312469DE2 FOREIGN KEY (category_id) REFERENCES category (id) ON UPDATE NO ACTION ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE category_subcategory ADD CONSTRAINT FK_BA47E6235DC6FE57 FOREIGN KEY (subcategory_id) REFERENCES subcategory (id) ON UPDATE NO ACTION ON DELETE CASCADE');
         $this->addSql('ALTER TABLE `order` DROP order_number');
         $this->addSql('ALTER TABLE user CHANGE delivery_address_id delivery_address_id INT NOT NULL');
-        $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E62312469DE2');
-        $this->addSql('ALTER TABLE category_subcategory DROP FOREIGN KEY FK_BA47E6235DC6FE57');
-        $this->addSql('ALTER TABLE `order` DROP order_number');
         $this->addSql('ALTER TABLE user CHANGE delivery_address_id delivery_address_id INT NOT NULL');
     }
 }

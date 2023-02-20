@@ -75,11 +75,17 @@ class Product
      */
     private $categorySubcategory;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rating::class, mappedBy="product")
+     */
+    private $ratings;
+
 
     public function __construct()
     {
         $this->shoppingCartProducts = new ArrayCollection();
         $this->orderProducts = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,5 +252,35 @@ class Product
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection<int, Rating>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getProduct() === $this) {
+                $rating->setProduct(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -129,6 +129,31 @@ footer {
     background-color: #efefee;
 }
 
+.brand-name{
+    color: mediumseagreen;
+    transition: all 0.2s ease-in-out;
+    font-size: 55px;
+}
+
+.brand-name:hover{
+    cursor: pointer;
+    font-size: 60px;
+}
+
+.navbar-links {
+    color: #444444;
+    transition: all 0.2s ease-in-out;
+    font-size: 20px;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.navbar-links:hover{
+    color:  #444444;
+    cursor: pointer;
+    font-size: 25px;
+}
+
 .animal-types {
     color: var(--white);
     font-size: x-large;
@@ -140,6 +165,31 @@ footer {
     cursor: pointer;
     color: var(--white);
     font-size: xx-large;
+}
+
+.category-menu{
+    color:  #444444;
+    font-size: 30px;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.category-menu:hover{
+    color:  #444444;
+    font-size: 40px;
+}
+
+.subcategory-menu{
+    color:  #444444;
+    font-size: 20px;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.subcategory-menu:hover{
+    color:  #444444;
+    font-size: 25px;
 }
 
 .center-img {
@@ -172,7 +222,6 @@ footer {
     padding-left: 87%;
     font-weight: 900;
     font-size: 20px;
-    margin-top: 20px;
 }
 
 .checkout-button:hover {
@@ -303,3 +352,18 @@ footer {
     width: 100%;
     border-radius: 20px;
 }
+
+.quantity {
+    width: 570px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.stars-label {
+    margin-left: 35px;
+}
+
+.star-active {
+    mix-blend-mode: initial !important;
+}
+

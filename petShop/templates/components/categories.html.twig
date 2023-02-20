@@ -3,14 +3,16 @@
     {% for category in categories %}
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('app_products', {category: category}) }}" style="font-size: xx-large; color: #444444">{{ category }}</a>
+                <hr class="mb-2" style="width: 80%">
+                <a class="category-menu" href="{{ path('app_products', {category: category}) }}">{{ category }}</a>
+                <hr class="mt-1" style="width: 80%">
             </li>
             {% for categorySubcategory in categorySubcategories %}
                 {% set categoryName = categorySubcategory.category.animalType %}
                 {% set subcategoryName = categorySubcategory.subcategory.name %}
                 {% if categoryName == category %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_products', {category: categoryName, subcategory: subcategoryName}) }}" style="margin-left: 20px; color: #444444">{{subcategoryName}}</a>
+                        <a class="subcategory-menu" href="{{ path('app_products', {category: categoryName, subcategory: subcategoryName}) }}">{{subcategoryName}}</a>
                     </li>
                 {% endif %}
             {% endfor %}

@@ -2,14 +2,14 @@
     <h1 class="mt-3 mb-4" style="padding-top: 20px">Products</h1>
     <div class="d-flex align-items-center ms-lg-5">
         <h5 class="ms-lg-5" style="padding-top: 30px">Price range:</h5>
-        <input class="price-range ms-1" type="number" min="1" id="minPrice" value="{{ minPrice }}">
+        <input class="price-range ms-2" type="number" min="1" id="minPrice" value="{{ minPrice }}">
         <h2 class="mt-4">-</h2>
         <input class="price-range" type="number" min="1" id="maxPrice" value="{{ maxPrice }}">
         <button class="btn btn-dark pt-0 pb-0 p-1 m-lg-1 mt-lg-4" onclick="updatePageByFilters(event)"><i class="fas fa-long-arrow-alt-right ms-0" style="color: whitesmoke"></i></button>
     </div>
     <div class="d-flex align-items-center ms-lg-5">
         <h5 class="ms-lg-5" style="padding-top: 30px">Sort:</h5>
-        <select type="text" id="sortDropdown" class="form-control sort-dropdown" onchange="updatePageByFilters(event)">
+        <select type="text" id="sortDropdown" class="form-control sort-dropdown ms-2" onchange="updatePageByFilters(event)">
             <option {{ (selectedOptionText|default and selectedOptionText == 'Price Ascending') ? 'selected' : '' }}
                     value="price-ASC">Price Ascending</option>
             <option {{ (selectedOptionText|default and selectedOptionText == 'Price Descending') ? 'selected' : '' }}

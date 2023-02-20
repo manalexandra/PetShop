@@ -5,7 +5,7 @@
 {% block body %}
     <div class="container py-5 h-100" style="margin-bottom: 63px">
         <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="card">
+            <div class="card", style="margin-bottom: 78px">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div style="height: 25px">
@@ -49,7 +49,7 @@
                                         <div style="width: 150px;">
                                             <h5 class="mb-0">{{ shoppingCartProduct.product.price }} €</h5>
                                         </div>
-                                        <div style="width: 150px;">
+                                        <div style="width: 330px;">
                                             <h5 class="mb-0">{{ shoppingCartProduct.getTotalPrice }} €</h5>
                                         </div>
                                         <button class="btn btn-light" onclick="removeFromCart(event, '{{path('app_removeFromCart', {id: shoppingCartProduct.product.id})}}')" style="color: mediumseagreen; background-color: #fff; width: 50px"><i class="fas fa-trash-alt"></i></button>
